@@ -32,8 +32,8 @@
             LogoPictureLabel = new Label();
             DownloadButton = new Button();
             rimListView = new ListView();
-            comboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
+            boltPatternDropDown = new ComboBox();
+            diameterDropDown = new ComboBox();
             FilteringLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)LogoPicture).BeginInit();
             SuspendLayout();
@@ -81,21 +81,21 @@
             rimListView.UseCompatibleStateImageBehavior = false;
             rimListView.MouseClick += rimListView_MouseClick;
             // 
-            // comboBox1
+            // boltPatternDropDown
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(120, 302);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
-            comboBox1.TabIndex = 5;
+            boltPatternDropDown.FormattingEnabled = true;
+            boltPatternDropDown.Location = new Point(120, 302);
+            boltPatternDropDown.Name = "boltPatternDropDown";
+            boltPatternDropDown.Size = new Size(121, 23);
+            boltPatternDropDown.TabIndex = 5;
             // 
-            // comboBox2
+            // diameterDropDown
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(269, 302);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(121, 23);
-            comboBox2.TabIndex = 6;
+            diameterDropDown.FormattingEnabled = true;
+            diameterDropDown.Location = new Point(269, 302);
+            diameterDropDown.Name = "diameterDropDown";
+            diameterDropDown.Size = new Size(121, 23);
+            diameterDropDown.TabIndex = 6;
             // 
             // FilteringLabel
             // 
@@ -112,14 +112,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(617, 742);
             Controls.Add(FilteringLabel);
-            Controls.Add(comboBox2);
-            Controls.Add(comboBox1);
+            Controls.Add(diameterDropDown);
+            Controls.Add(boltPatternDropDown);
             Controls.Add(rimListView);
             Controls.Add(DownloadButton);
             Controls.Add(LogoPictureLabel);
             Controls.Add(LogoPicture);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)LogoPicture).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -130,8 +131,8 @@
         private Label LogoPictureLabel;
         private Button DownloadButton;
         private ListView rimListView;
-        private ComboBox comboBox1;
-        private ComboBox comboBox2;
+        private ComboBox boltPatternDropDown;
+        private ComboBox diameterDropDown;
         private Label FilteringLabel;
     }
 }

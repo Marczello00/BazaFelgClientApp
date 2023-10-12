@@ -8,12 +8,19 @@ namespace MyApp
 {
     public partial class Form1 : Form
     {
+        private void FillInDropDowns()
+        {
+            List<string> boltPatternList = new List<string> { "Rozstaw", "5x112", "5x100", "5x120", "5x108", "5x110", "4x114.3", "5x115", "4x100", "4x108" };
+            boltPatternDropDown.DataSource = boltPatternList;boltPatternDropDown.SelectedIndex = 0;
+            List<string> DiameterList = new List<string> { "Œrednica","13","14","15","16","17","18","19","20" };
+            diameterDropDown.DataSource=DiameterList; diameterDropDown.SelectedIndex = 0;
+        }
         private List<RimModel> rims = new List<RimModel>();
         private void CreateSampleData()
         {
             rims.Add(new RimModel("1", "alu", "B", "5", "120", "18", "8.5", "52", "2500", "4000", "255/35R18", "5020"));
             rims.Add(new RimModel("2", "alu", "MWs", "53", "1230", "18", "8.35", "532", "25030", "40030", "2355/35R18", "35020"));
-            rims.Add(new RimModel("2", "alu", "MWs", "53", "1230", "16", "8.35", "532", "25030", "40030", "2355/35R18", "35020"));
+            rims.Add(new RimModel("2", "alu", "MWs", "5", "112", "16", "8.35", "532", "25030", "40030", "2355/35R18", "35020"));
         }
         private void CreateColumns()
         {
@@ -59,8 +66,9 @@ namespace MyApp
         {
             InitializeComponent();
             CreateSampleData();
+            FillInDropDowns();
             CreateColumns();
-            FillInForm(DataProcessor.FilterRimsByDiameter(rims,18));
+            FillInForm(DataProcessor.FilterRimsByBoth(rims, 13, 5, 112));
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -86,12 +94,18 @@ namespace MyApp
                 selectedIndex = rimListView.SelectedIndices[0];
                 ListViewHitTestInfo hitTest = rimListView.HitTest(e.Location);
                 subItemIndex = hitTest.Item.SubItems.IndexOf(hitTest.SubItem);
-                if( subItemIndex == 7 ) {
+                if (subItemIndex == 7)
+                {
                     string url = "https://oponymajcher.pl/baza/felgi.php?id=" + rims[selectedIndex].Id.ToString(); ; ;
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                 }
             }
-            MessageBox.Show("clicked " + subItemIndex + " subitem if "+selectedIndex+" Item");
+            //MessageBox.Show("clicked " + subItemIndex + " subitem if "+selectedIndex+" Item");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
