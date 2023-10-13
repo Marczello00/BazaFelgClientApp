@@ -88,6 +88,7 @@
             boltPatternDropDown.Name = "boltPatternDropDown";
             boltPatternDropDown.Size = new Size(121, 23);
             boltPatternDropDown.TabIndex = 5;
+            boltPatternDropDown.SelectedIndexChanged += boltPatternDropDown_SelectedIndexChanged;
             // 
             // diameterDropDown
             // 
@@ -96,6 +97,7 @@
             diameterDropDown.Name = "diameterDropDown";
             diameterDropDown.Size = new Size(121, 23);
             diameterDropDown.TabIndex = 6;
+            diameterDropDown.SelectedIndexChanged += diameterDropDown_SelectedIndexChanged;
             // 
             // FilteringLabel
             // 

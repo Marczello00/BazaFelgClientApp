@@ -9,28 +9,24 @@ namespace MyApp
 {
     public class RimModel
     {
-        public int Id { get; set; }
-        public string Type { get; set; }
-        public string Make { get; set; }
-        public int ScrewsQuantity { get; set; }
-        public int ScrewsSpacing { get; set; }
-        public float Diameter { get; set; }
-        public float Width { get; set; }
-        public float Offset { get; set; }
-        public int Price { get; set; }
-        public int PriceAsWheel { get; set; }
-        public string TireSize { get; set; }
-        public int TireDOT { get; set; }
-        static int count = 0;
-        public static int TotalCount()
-        {
-            return count;
-        }
+        public static List<string> boltPatternList = new List<string> { "Rozstaw", "5x112", "5x100", "5x120", "5x108", "5x110", "4x114.3", "5x115", "4x100", "4x108" };
+        public static List<string> DiameterList = new List<string> { "Średnica", "13", "14", "15", "16", "17", "18", "19", "20" };
+        public int Id { get; private set; }
+        public string Type { get; private set; }
+        public string Make { get; private set; }
+        public int ScrewsQuantity { get; private set; }
+        public int ScrewsSpacing { get; private set; }//TODO tu ma byc float jednak
+        public float Diameter { get; private set; }
+        public float Width { get; private set; }
+        public float Offset { get; private set; }
+        public int Price { get; private set; }
+        public int PriceAsWheel { get; private set; }
+        public string TireSize { get; private set; }
+        public int TireDOT { get; private set; }
         public RimModel() {
             Type = "";
             Make = "";
             TireSize = "";
-            count++;
         }
         public RimModel(string  id, string type, string make, string screwsQuantity, string screwsSpacing, string diameter, string width, string offset, string price, string priceAsWheel, string tireSize, string tireDOT)
         {
@@ -75,7 +71,6 @@ namespace MyApp
             int tireDOTValue = 0;
             int.TryParse(tireDOT,out tireDOTValue);
             TireDOT= tireDOTValue;
-            count++;
         }
         public void ShowSmth()
         {

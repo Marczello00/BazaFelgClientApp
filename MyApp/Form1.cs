@@ -8,14 +8,14 @@ namespace MyApp
 {
     public partial class Form1 : Form
     {
+        private int selectedBoltPattern = 0;
+        private int selectedDiameter = 0;
+        private List<RimModel> rims = new List<RimModel>();
         private void FillInDropDowns()
         {
-            List<string> boltPatternList = new List<string> { "Rozstaw", "5x112", "5x100", "5x120", "5x108", "5x110", "4x114.3", "5x115", "4x100", "4x108" };
-            boltPatternDropDown.DataSource = boltPatternList;boltPatternDropDown.SelectedIndex = 0;
-            List<string> DiameterList = new List<string> { "Œrednica","13","14","15","16","17","18","19","20" };
-            diameterDropDown.DataSource=DiameterList; diameterDropDown.SelectedIndex = 0;
+            boltPatternDropDown.DataSource = RimModel.boltPatternList; boltPatternDropDown.SelectedIndex = 0;
+            diameterDropDown.DataSource = RimModel.DiameterList; diameterDropDown.SelectedIndex = 0;
         }
-        private List<RimModel> rims = new List<RimModel>();
         private void CreateSampleData()
         {
             rims.Add(new RimModel("1", "alu", "B", "5", "120", "18", "8.5", "52", "2500", "4000", "255/35R18", "5020"));
@@ -36,10 +36,21 @@ namespace MyApp
             foreach (ColumnHeader column in rimListView.Columns)
                 column.Width = columnWidth;
         }
-        private void FillInForm(List<RimModel> givenRims)
+        private void FillInForm()
         {
+            rimListView.Items.Clear();
             Font hyperlinkFont = new Font(rimListView.Font, FontStyle.Underline | FontStyle.Bold);
             Color hyperlinkColor = Color.Blue;
+            List<RimModel> givenRims = new List<RimModel>();
+            givenRims = rims;
+            if (selectedDiameter != 0)
+            {
+                givenRims = DataProcessor.FilterRimsByDiameter(rims, selectedDiameter);
+            }
+            if (selectedBoltPattern != 0)
+            {
+                givenRims= DataProcessor.FilterRimsByScrews(givenRims, selectedBoltPattern);
+            }
             int numberOfRims = givenRims.Count;
             if (numberOfRims < 1)
             {
@@ -68,7 +79,7 @@ namespace MyApp
             CreateSampleData();
             FillInDropDowns();
             CreateColumns();
-            FillInForm(DataProcessor.FilterRimsByBoth(rims, 13, 5, 112));
+            FillInForm();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -106,6 +117,19 @@ namespace MyApp
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void boltPatternDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedBoltPattern = boltPatternDropDown.SelectedIndex;
+            FillInForm();
+
+        }
+
+        private void diameterDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedDiameter = diameterDropDown.SelectedIndex;
+            FillInForm();
         }
     }
 }
