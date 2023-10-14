@@ -35,6 +35,7 @@
             boltPatternDropDown = new ComboBox();
             diameterDropDown = new ComboBox();
             FilteringLabel = new Label();
+            noMatchingRimsLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)LogoPicture).BeginInit();
             SuspendLayout();
             // 
@@ -108,16 +109,28 @@
             FilteringLabel.TabIndex = 7;
             FilteringLabel.Text = "Filtrowanie";
             // 
+            // noMatchingRimsLabel
+            // 
+            noMatchingRimsLabel.AutoSize = true;
+            noMatchingRimsLabel.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            noMatchingRimsLabel.Location = new Point(161, 466);
+            noMatchingRimsLabel.Name = "noMatchingRimsLabel";
+            noMatchingRimsLabel.Size = new Size(264, 37);
+            noMatchingRimsLabel.TabIndex = 8;
+            noMatchingRimsLabel.Text = "Brak pasujących felg!";
+            noMatchingRimsLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(617, 742);
+            Controls.Add(noMatchingRimsLabel);
+            Controls.Add(DownloadButton);
             Controls.Add(FilteringLabel);
             Controls.Add(diameterDropDown);
             Controls.Add(boltPatternDropDown);
             Controls.Add(rimListView);
-            Controls.Add(DownloadButton);
             Controls.Add(LogoPictureLabel);
             Controls.Add(LogoPicture);
             Name = "Form1";
@@ -136,5 +149,6 @@
         private ComboBox boltPatternDropDown;
         private ComboBox diameterDropDown;
         private Label FilteringLabel;
+        private Label noMatchingRimsLabel;
     }
 }

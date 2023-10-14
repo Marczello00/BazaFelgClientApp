@@ -8,13 +8,16 @@ namespace MyApp
 {
     public partial class Form1 : Form
     {
+        private bool blockFilling = false;
         private int selectedBoltPattern = 0;
         private int selectedDiameter = 0;
         private List<RimModel> rims = new List<RimModel>();
         private void FillInDropDowns()
         {
+            blockFilling = true;
             boltPatternDropDown.DataSource = RimModel.boltPatternList; boltPatternDropDown.SelectedIndex = 0;
             diameterDropDown.DataSource = RimModel.DiameterList; diameterDropDown.SelectedIndex = 0;
+            blockFilling = false;
         }
         private void CreateSampleData()
         {
@@ -38,23 +41,21 @@ namespace MyApp
         }
         private void FillInForm()
         {
-            rimListView.Items.Clear();
+            if (blockFilling)
+                return;
+            ClearListView();
             Font hyperlinkFont = new Font(rimListView.Font, FontStyle.Underline | FontStyle.Bold);
             Color hyperlinkColor = Color.Blue;
             List<RimModel> givenRims = new List<RimModel>();
             givenRims = rims;
             if (selectedDiameter != 0)
-            {
                 givenRims = DataProcessor.FilterRimsByDiameter(rims, selectedDiameter);
-            }
             if (selectedBoltPattern != 0)
-            {
-                givenRims= DataProcessor.FilterRimsByScrews(givenRims, selectedBoltPattern);
-            }
+                givenRims = DataProcessor.FilterRimsByScrews(givenRims, selectedBoltPattern);
             int numberOfRims = givenRims.Count;
             if (numberOfRims < 1)
             {
-                MessageBox.Show("Brak felg o podanych wymiarach!");
+                ShowNoMatchingRims();
                 return;
             }
             for (int i = 0; i < numberOfRims; i++)
@@ -76,12 +77,20 @@ namespace MyApp
         public Form1()
         {
             InitializeComponent();
-            CreateSampleData();
             FillInDropDowns();
             CreateColumns();
-            FillInForm();
         }
 
+        private void ShowNoMatchingRims()
+        {
+            rimListView.Items.Clear();
+            noMatchingRimsLabel.Visible = true;
+        }
+        private void ClearListView()
+        {
+            noMatchingRimsLabel.Visible = false;
+            rimListView.Items.Clear();
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -94,6 +103,8 @@ namespace MyApp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            CreateSampleData();
+            FillInForm();
         }
 
         private void rimListView_MouseClick(object sender, MouseEventArgs e)
@@ -123,7 +134,7 @@ namespace MyApp
         {
             selectedBoltPattern = boltPatternDropDown.SelectedIndex;
             FillInForm();
-
+        
         }
 
         private void diameterDropDown_SelectedIndexChanged(object sender, EventArgs e)
