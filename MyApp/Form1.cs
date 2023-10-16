@@ -3,10 +3,11 @@ using System;
 using System.Security.Policy;
 using System.Windows.Forms;
 using MyApp.DataProcessing;
+using System.Configuration;
 
 namespace MyApp
 {
-    public partial class Form1 : Form
+    public partial class MainApplicationForm : Form
     {
         private bool blockFilling = false;
         private int selectedBoltPattern = 0;
@@ -27,6 +28,7 @@ namespace MyApp
         }
         private void CreateColumns()
         {
+            //LogoPicture.Visible = false;
             rimListView.View = View.Details;
             rimListView.GridLines = true;
             rimListView.FullRowSelect = true;
@@ -64,7 +66,7 @@ namespace MyApp
                 rowInListView.SubItems.Add(givenRims[i].Type);
                 rowInListView.SubItems.Add(givenRims[i].Make);
                 rowInListView.SubItems.Add(givenRims[i].ScrewsQuantity.ToString() + "x" + givenRims[i].ScrewsSpacing.ToString());
-                rowInListView.SubItems.Add(givenRims[i].Diameter.ToString() + "\"x" + givenRims[i].Width.ToString());
+                rowInListView.SubItems.Add(givenRims[i].Diameter.ToString() + "\"x" + givenRims[i].Width.ToString() + "J");
                 rowInListView.SubItems.Add(givenRims[i].Offset.ToString());
                 rowInListView.SubItems.Add(givenRims[i].Price.ToString());
                 rowInListView.SubItems.Add("Klik!");
@@ -73,18 +75,21 @@ namespace MyApp
                 rimListView.Items[i].SubItems[7].Font = hyperlinkFont;
                 rimListView.Items[i].SubItems[7].ForeColor = hyperlinkColor;
             }
+            rimsCountLabel.Text = "£¹czna liczba kompletów felg: " + givenRims.Count.ToString();
         }
-        public Form1()
+        public MainApplicationForm()
         {
             InitializeComponent();
             FillInDropDowns();
             CreateColumns();
+            versionLabel.Text = "Marcel Majcher wersja: " + ConfigurationManager.AppSettings["AppVersion"];
         }
 
         private void ShowNoMatchingRims()
         {
             rimListView.Items.Clear();
             noMatchingRimsLabel.Visible = true;
+            rimsCountLabel.Text = "£¹czna liczba kompletów felg: 0";
         }
         private void ClearListView()
         {
@@ -101,10 +106,15 @@ namespace MyApp
             LogoPicture.BackColor = Color.Transparent;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void downloadDataButton_Click(object sender, EventArgs e)
         {
-            CreateSampleData();
+            downloadDataProgressBar.Visible = true;
+            downloadDataProgressBar.Value = 50;
+            rims = await Task.Run(() => SqlConnectionApp.GetDatabaseDataAsync());
+            downloadDataProgressBar.Value = 100;
+            //CreateSampleData();
             FillInForm();
+            downloadDataProgressBar.Visible = false;
         }
 
         private void rimListView_MouseClick(object sender, MouseEventArgs e)
@@ -134,13 +144,17 @@ namespace MyApp
         {
             selectedBoltPattern = boltPatternDropDown.SelectedIndex;
             FillInForm();
-        
+
         }
 
         private void diameterDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedDiameter = diameterDropDown.SelectedIndex;
             FillInForm();
+        }
+        public static string GetConnectionString(string connectionStringName)
+        {
+            return ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
         }
     }
 }

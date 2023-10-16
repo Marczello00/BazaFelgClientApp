@@ -23,6 +23,7 @@ namespace MyApp.DataProcessing
             }
             return -1;
         }
+        //TODO Polacz te dwie metody w jedna z uzyciem out.
         private static float GetBoltPatternListScrewsSpacing(string boltPattern)
         {
             float screwsSpacingf = 0;
@@ -37,6 +38,7 @@ namespace MyApp.DataProcessing
             }
             return -1;
         }
+        //TODO zamiast prostej zamiany str na int zrob zwracanie zawartosci tablicy srednic pod podanym indeksem
         private static int GetDiameterListDiameter(string diameter)
         {
             int diameteri = 0;

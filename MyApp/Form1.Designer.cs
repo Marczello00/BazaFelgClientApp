@@ -1,6 +1,6 @@
 ﻿namespace MyApp
 {
-    partial class Form1
+    partial class MainApplicationForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainApplicationForm));
             LogoPicture = new PictureBox();
             LogoPictureLabel = new Label();
             DownloadButton = new Button();
@@ -36,6 +37,9 @@
             diameterDropDown = new ComboBox();
             FilteringLabel = new Label();
             noMatchingRimsLabel = new Label();
+            downloadDataProgressBar = new ProgressBar();
+            versionLabel = new Label();
+            rimsCountLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)LogoPicture).BeginInit();
             SuspendLayout();
             // 
@@ -71,7 +75,7 @@
             DownloadButton.TabIndex = 3;
             DownloadButton.Text = "Pobierz dane";
             DownloadButton.UseVisualStyleBackColor = true;
-            DownloadButton.Click += button1_Click;
+            DownloadButton.Click += downloadDataButton_Click;
             // 
             // rimListView
             // 
@@ -84,6 +88,7 @@
             // 
             // boltPatternDropDown
             // 
+            boltPatternDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             boltPatternDropDown.FormattingEnabled = true;
             boltPatternDropDown.Location = new Point(120, 302);
             boltPatternDropDown.Name = "boltPatternDropDown";
@@ -93,6 +98,7 @@
             // 
             // diameterDropDown
             // 
+            diameterDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             diameterDropDown.FormattingEnabled = true;
             diameterDropDown.Location = new Point(269, 302);
             diameterDropDown.Name = "diameterDropDown";
@@ -120,11 +126,40 @@
             noMatchingRimsLabel.Text = "Brak pasujących felg!";
             noMatchingRimsLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // Form1
+            // downloadDataProgressBar
+            // 
+            downloadDataProgressBar.Location = new Point(256, 261);
+            downloadDataProgressBar.Name = "downloadDataProgressBar";
+            downloadDataProgressBar.Size = new Size(100, 23);
+            downloadDataProgressBar.TabIndex = 9;
+            downloadDataProgressBar.Visible = false;
+            // 
+            // versionLabel
+            // 
+            versionLabel.AutoSize = true;
+            versionLabel.Location = new Point(428, 718);
+            versionLabel.Name = "versionLabel";
+            versionLabel.Size = new Size(146, 15);
+            versionLabel.TabIndex = 10;
+            versionLabel.Text = "Marcel Majcher wersja: 1.0";
+            // 
+            // rimsCountLabel
+            // 
+            rimsCountLabel.AutoSize = true;
+            rimsCountLabel.Location = new Point(26, 718);
+            rimsCountLabel.Name = "rimsCountLabel";
+            rimsCountLabel.Size = new Size(174, 15);
+            rimsCountLabel.TabIndex = 11;
+            rimsCountLabel.Text = "Łączna liczba kompletów felg: 0";
+            // 
+            // MainApplicationForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(617, 742);
+            Controls.Add(rimsCountLabel);
+            Controls.Add(versionLabel);
+            Controls.Add(downloadDataProgressBar);
             Controls.Add(noMatchingRimsLabel);
             Controls.Add(DownloadButton);
             Controls.Add(FilteringLabel);
@@ -133,8 +168,9 @@
             Controls.Add(rimListView);
             Controls.Add(LogoPictureLabel);
             Controls.Add(LogoPicture);
-            Name = "Form1";
-            Text = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "MainApplicationForm";
+            Text = "Baza felg oponymajcher.pl";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)LogoPicture).EndInit();
             ResumeLayout(false);
@@ -150,5 +186,8 @@
         private ComboBox diameterDropDown;
         private Label FilteringLabel;
         private Label noMatchingRimsLabel;
+        public ProgressBar downloadDataProgressBar;
+        private Label versionLabel;
+        private Label rimsCountLabel;
     }
 }
