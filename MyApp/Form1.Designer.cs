@@ -54,6 +54,7 @@
             LogoPicture.SizeMode = PictureBoxSizeMode.Zoom;
             LogoPicture.TabIndex = 1;
             LogoPicture.TabStop = false;
+            LogoPicture.Visible = false;
             LogoPicture.Paint += pictureBox1_Paint;
             // 
             // LogoPictureLabel
@@ -141,7 +142,7 @@
             versionLabel.Name = "versionLabel";
             versionLabel.Size = new Size(146, 15);
             versionLabel.TabIndex = 10;
-            versionLabel.Text = "Marcel Majcher wersja: 1.0";
+            versionLabel.Text = "Marcel Majcher wersja: 1.1";
             // 
             // rimsCountLabel
             // 

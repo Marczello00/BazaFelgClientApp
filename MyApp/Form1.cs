@@ -13,6 +13,7 @@ namespace MyApp
         private int selectedBoltPattern = 0;
         private int selectedDiameter = 0;
         private List<RimModel> rims = new List<RimModel>();
+        private List<RimModel> givenRims = new List<RimModel>();
         private void FillInDropDowns()
         {
             blockFilling = true;
@@ -48,7 +49,6 @@ namespace MyApp
             ClearListView();
             Font hyperlinkFont = new Font(rimListView.Font, FontStyle.Underline | FontStyle.Bold);
             Color hyperlinkColor = Color.Blue;
-            List<RimModel> givenRims = new List<RimModel>();
             givenRims = rims;
             if (selectedDiameter != 0)
                 givenRims = DataProcessor.FilterRimsByDiameter(rims, selectedDiameter);
@@ -128,7 +128,7 @@ namespace MyApp
                 subItemIndex = hitTest.Item.SubItems.IndexOf(hitTest.SubItem);
                 if (subItemIndex == 7)
                 {
-                    string url = "https://oponymajcher.pl/baza/felgi.php?id=" + rims[selectedIndex].Id.ToString(); ; ;
+                    string url = "https://oponymajcher.pl/baza/felgi.php?id=" + givenRims[selectedIndex].Id.ToString(); ; ;
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                 }
             }
@@ -154,7 +154,9 @@ namespace MyApp
         }
         public static string GetConnectionString(string connectionStringName)
         {
-            return ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+            string connectionString = "Server=192.168.1.20; User ID=LocalAppRetrieve; Password=7@P$9tZ#5vQ2dY6; Database=warsztat;";
+            //string connectionString ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+            return connectionString;
         }
     }
 }
