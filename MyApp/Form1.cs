@@ -128,7 +128,7 @@ namespace MyApp
                 subItemIndex = hitTest.Item.SubItems.IndexOf(hitTest.SubItem);
                 if (subItemIndex == 7)
                 {
-                    string url = "https://oponymajcher.pl/baza/felgi.php?id=" + givenRims[selectedIndex].Id.ToString(); ; ;
+                    string url = "http://192.168.1.20/baza/felgi.php?id=" + givenRims[selectedIndex].Id.ToString(); ; ;
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                 }
             }
