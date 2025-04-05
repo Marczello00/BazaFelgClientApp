@@ -9,7 +9,7 @@ namespace MyApp
 {
     public class RimModel
     {
-        public static List<string> boltPatternList = new List<string> { "Rozstaw", "5x112", "5x100", "5x120", "5x108", "5x110", "4x114.3", "5x115", "4x100", "4x108" };
+        public static List<string> boltPatternList = new List<string> { "Rozstaw", "5x112", "5x100", "5x120", "5x108", "5x110", "4x114", "5x115", "4x100", "4x108", "5x114", "6x139" };
         public static List<string> DiameterList = new List<string> { "Średnica", "13", "14", "15", "16", "17", "18", "19", "20" };
         public int Id { get; private set; }
         public string Type { get; private set; }
